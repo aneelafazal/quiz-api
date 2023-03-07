@@ -11,7 +11,7 @@ async function saveQuizAsync(quiz) {
     const allQuizzes = await db.getAllQuizzes();
     const nameExists = allQuizzes
         .filter(q => q.id != quiz.id)
-        .some(q => q.name.toLowerCase() == quiz.name.toUpperCase().trim());    
+        .some(q => q.name.toLowerCase() == quiz.name.toLowerCase().trim());    
     if (nameExists) {
         throw new ValidationError('Duplicate quiz name');
     }
@@ -35,7 +35,7 @@ async function getAllQuizzesAsync() {
     const list = quizzes.map(quiz => {
         return {
             id: quiz.id,
-            name: quiz.name
+            name: quiz.name.toLowerCase()
         };
     });
     return list;
